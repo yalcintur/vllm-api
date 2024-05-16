@@ -27,6 +27,11 @@ class ResponseItem(BaseModel):
 
 app = FastAPI()
 
+@app.get("/health")
+async def health() -> Response:
+    """Health check."""
+    return Response(status_code=200)
+
 @app.post("/run_batch", response_model=List[ResponseItem])
 async def run_vllm_endpoint(requests: List[RequestItem]):
     try:
