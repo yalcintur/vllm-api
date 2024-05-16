@@ -2,6 +2,7 @@ from typing import List
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from vllm import LLM, SamplingParams
+from fastapi.responses import JSONResponse, Response, StreamingResponse
 
 model = "microsoft/Phi-3-mini-4k-instruct"
 trust_remote_code = True
