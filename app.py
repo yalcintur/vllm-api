@@ -4,9 +4,9 @@ from pydantic import BaseModel
 from vllm import LLM, SamplingParams
 from fastapi.responses import JSONResponse, Response, StreamingResponse
 
-model = "microsoft/Phi-3-mini-4k-instruct"
+model = "HFInternal/phi3_mini_no_sliding_window"
 trust_remote_code = True
-max_model_len = 512
+max_model_len = 1024
 gpu_memory_utilization = 0.95
 enforce_eager = True
 
@@ -16,6 +16,7 @@ llm = LLM(
     max_model_len=max_model_len,
     gpu_memory_utilization=gpu_memory_utilization,
     enforce_eager=enforce_eager,
+    enable_prefix_caching=True,
 )
 
 class RequestItem(BaseModel):
@@ -40,10 +41,10 @@ async def run_vllm_endpoint(requests: List[RequestItem]):
         sampling_params = [
             SamplingParams(
                 n=1,
-                temperature=0.5,
+                temperature=0.3,
                 top_p=1.0,
                 use_beam_search=False,
-                ignore_eos=True,
+                ignore_eos=False,
                 max_tokens=req.output_len,
             )
             for req in requests
@@ -57,3 +58,4 @@ async def run_vllm_endpoint(requests: List[RequestItem]):
         return response
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+        
