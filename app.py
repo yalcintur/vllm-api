@@ -26,7 +26,6 @@ class RequestItem(BaseModel):
     output_len: int
 
 class ResponseItem(BaseModel):
-    prompt: str
     result: str
 
 app = FastAPI()
