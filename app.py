@@ -43,7 +43,7 @@ async def run_vllm_endpoint(requests: List[RequestItem]):
         sampling_params = [
             SamplingParams(
                 n=1,
-                temperature=0.3,
+                temperature=0,
                 top_p=1.0,
                 use_beam_search=False,
                 ignore_eos=False,
@@ -54,7 +54,7 @@ async def run_vllm_endpoint(requests: List[RequestItem]):
 
         results = llm.generate(prompts, sampling_params, use_tqdm=False)
         response = [
-            ResponseItem(prompt=req.prompt, result=result.outputs[0].text)
+            ResponseItem(result=result.outputs[0].text)
             for req, result in zip(requests, results)
         ]
         return response
