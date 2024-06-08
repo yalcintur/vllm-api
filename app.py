@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from vllm import LLM, SamplingParams
 from fastapi.responses import JSONResponse, Response, StreamingResponse
 
-model = "HFInternal/hyperchat_tr_v2"
+model = "HFInternal/hyperchat_tr_v4"
 trust_remote_code = True
 max_model_len = 2048
 gpu_memory_utilization = 0.95
@@ -43,7 +43,7 @@ async def run_vllm_endpoint(requests: List[RequestItem]):
         sampling_params = [
             SamplingParams(
                 n=1,
-                temperature=0,
+                temperature=0.3,
                 top_p=0.9,
                 use_beam_search=False,
                 ignore_eos=False,
