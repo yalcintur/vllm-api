@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from vllm import LLM, SamplingParams
 from fastapi.responses import JSONResponse, Response, StreamingResponse
 
-model = "HFInternal/hyperchat_tr_v4"
+model = "HFInternal/hyperchat_bilingual_v3"
 trust_remote_code = True
 max_model_len = 2048
 gpu_memory_utilization = 0.95
