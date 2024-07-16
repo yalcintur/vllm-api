@@ -4,12 +4,11 @@ from pydantic import BaseModel
 from vllm import LLM, SamplingParams
 from fastapi.responses import JSONResponse, Response, StreamingResponse
 
-model = "HFInternal/hyperchat_bilingual_v3"
+model = "HFInternal/altai_tr_v0"
 trust_remote_code = True
 max_model_len = 2048
 gpu_memory_utilization = 0.95
 enforce_eager = True
-quantization = "fp8"
 
 llm = LLM(
     model=model,
@@ -19,7 +18,6 @@ llm = LLM(
     enforce_eager=enforce_eager,
     enable_prefix_caching=True,
     disable_sliding_window=True,
-    quantization=quantization
 )
 
 class RequestItem(BaseModel):
